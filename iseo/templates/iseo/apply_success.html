@@ -1,0 +1,58 @@
+{% extends 'iseo/base.html' %}
+{% block title %}Application Submitted — ISEO{% endblock %}
+
+{% block content %}
+<div style="max-width: 680px; margin: 5rem auto; padding: 0 2rem; text-align: center;">
+  <div style="width:72px;height:72px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+  <h1 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);margin-bottom:0.5rem;">Application Submitted!</h1>
+  <p style="color:var(--mid-gray);margin-bottom:2.5rem;">Thank you, {{ application.full_name }}. Your application has been received successfully.</p>
+
+  <div class="card" style="text-align:left;margin-bottom:2rem;">
+    <div style="text-align:center;background:var(--off-white);border-radius:4px;padding:1.5rem;margin-bottom:1.5rem;">
+      <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--mid-gray);margin-bottom:0.4rem;">Your Reference Number</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;letter-spacing:0.05em;">{{ application.reference_number }}</div>
+      <div style="font-size:0.82rem;color:var(--mid-gray);margin-top:0.4rem;">Save this number — you'll need it to track your application status.</div>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.7rem 0;color:var(--mid-gray);width:45%;">Student ID</td>
+        <td style="padding:0.7rem 0;font-weight:500;">{{ application.student_id }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.7rem 0;color:var(--mid-gray);">First Choice</td>
+        <td style="padding:0.7rem 0;font-weight:500;">{{ application.first_choice }}</td>
+      </tr>
+      {% if application.second_choice %}
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.7rem 0;color:var(--mid-gray);">Second Choice</td>
+        <td style="padding:0.7rem 0;font-weight:500;">{{ application.second_choice }}</td>
+      </tr>
+      {% endif %}
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.7rem 0;color:var(--mid-gray);">Exchange Period</td>
+        <td style="padding:0.7rem 0;font-weight:500;">{{ application.get_exchange_semester_display }} {{ application.exchange_year }}</td>
+      </tr>
+      <tr>
+        <td style="padding:0.7rem 0;color:var(--mid-gray);">Current Status</td>
+        <td style="padding:0.7rem 0;">
+          <span class="status-badge status-{{ application.status }}">{{ application.get_status_display }}</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="alert alert-info" style="text-align:left;">
+    <strong>What happens next?</strong> The ISEO team will review your application within 5–7 business days. You will receive an email at <strong>{{ application.email }}</strong> when your status changes. You can also check your status anytime on the <a href="{% url 'track_status' %}" style="color:var(--navy);font-weight:600;">Track Application</a> page.
+  </div>
+
+  <div style="display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;">
+    <a href="{% url 'track_status' %}" class="btn btn-primary">Track My Application</a>
+    <a href="{% url 'home' %}" class="btn btn-outline">Return to Home</a>
+  </div>
+</div>
+{% endblock %}

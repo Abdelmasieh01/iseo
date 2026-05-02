@@ -1,0 +1,122 @@
+[
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 1,
+    "fields": {
+      "name": "Cornell University",
+      "country": "United States",
+      "region": "North America",
+      "language_requirement": "TOEFL iBT 100 or IELTS 7.5",
+      "available_slots": 8,
+      "application_deadline": "2026-03-01",
+      "min_gpa": "3.00",
+      "description": "Cornell's Office of Global Learning manages incoming international exchange students from partner universities worldwide. The portal covers the full student lifecycle from eligibility through arrival.",
+      "website": "https://abroad.globallearning.cornell.edu/international-exchange"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 2,
+    "fields": {
+      "name": "Florida International University",
+      "country": "United States",
+      "region": "North America",
+      "language_requirement": "TOEFL iBT 80 or IELTS 6.5",
+      "available_slots": 10,
+      "application_deadline": "2026-03-15",
+      "min_gpa": "2.80",
+      "description": "FIU's Education Abroad portal manages the International Student Exchange program with a step-by-step application workflow and a course equivalency database.",
+      "website": "https://studyabroad.fiu.edu/explore-programs/international-student-exchange/"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 3,
+    "fields": {
+      "name": "University College London",
+      "country": "United Kingdom",
+      "region": "Europe",
+      "language_requirement": "IELTS 7.0 or equivalent",
+      "available_slots": 6,
+      "application_deadline": "2026-02-15",
+      "min_gpa": "3.20",
+      "description": "UCL is a world top-10 university in London, offering exchange students access to a wide range of faculties and research centers.",
+      "website": "https://www.ucl.ac.uk"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 4,
+    "fields": {
+      "name": "National University of Singapore",
+      "country": "Singapore",
+      "region": "Asia",
+      "language_requirement": "TOEFL iBT 85 or IELTS 6.0",
+      "available_slots": 5,
+      "application_deadline": "2026-04-01",
+      "min_gpa": "3.00",
+      "description": "NUS is Asia's leading global university, ranked consistently in the top 15 worldwide. Strong programs in engineering, business, and computing.",
+      "website": "https://www.nus.edu.sg"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 5,
+    "fields": {
+      "name": "Sciences Po Paris",
+      "country": "France",
+      "region": "Europe",
+      "language_requirement": "B2 French or TOEFL iBT 100 (English-track)",
+      "available_slots": 4,
+      "application_deadline": "2026-01-31",
+      "min_gpa": "3.10",
+      "description": "Sciences Po is one of Europe's most prestigious social sciences institutions, known for international relations, law, economics, and political science.",
+      "website": "https://www.sciencespo.fr"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 6,
+    "fields": {
+      "name": "Tecnológico de Monterrey",
+      "country": "Mexico",
+      "region": "Latin America",
+      "language_requirement": "Spanish B2 or English TOEFL iBT 79",
+      "available_slots": 7,
+      "application_deadline": "2026-03-30",
+      "min_gpa": "2.80",
+      "description": "Tec de Monterrey is Mexico's leading private university with 26 campuses. Strong in business, engineering, and technology innovation.",
+      "website": "https://www.tec.mx"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 7,
+    "fields": {
+      "name": "University of Melbourne",
+      "country": "Australia",
+      "region": "Oceania",
+      "language_requirement": "IELTS 6.5 or TOEFL iBT 79",
+      "available_slots": 6,
+      "application_deadline": "2026-05-01",
+      "min_gpa": "3.00",
+      "description": "Australia's #1 university with a vibrant multicultural campus, offering exchanges across all faculties including arts, science, and business.",
+      "website": "https://www.unimelb.edu.au"
+    }
+  },
+  {
+    "model": "iseo.partneruniversity",
+    "pk": 8,
+    "fields": {
+      "name": "Maastricht University",
+      "country": "Netherlands",
+      "region": "Europe",
+      "language_requirement": "IELTS 6.0 or TOEFL iBT 80",
+      "available_slots": 8,
+      "application_deadline": "2026-03-01",
+      "min_gpa": "2.75",
+      "description": "Known for its Problem-Based Learning approach, Maastricht University is highly international with over 50% international students and strong programs in law and business.",
+      "website": "https://www.maastrichtuniversity.nl"
+    }
+  }
+]

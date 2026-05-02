@@ -1,0 +1,105 @@
+{% extends 'iseo/base.html' %}
+{% block title %}Track Application — ISEO{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+  <h1>Track Your Application</h1>
+  <div class="gold-line"></div>
+  <p>Enter your reference number and student ID to view your current application status.</p>
+</div>
+
+<div style="max-width: 720px; margin: 4rem auto; padding: 0 2rem 5rem;">
+  <div class="card" style="margin-bottom:2rem;">
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:1.5rem;font-size:1.3rem;">Application Lookup</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-grid">
+        <div class="form-group">
+          {{ form.reference_number.label_tag }}
+          {{ form.reference_number }}
+          {{ form.reference_number.errors }}
+        </div>
+        <div class="form-group">
+          {{ form.student_id.label_tag }}
+          {{ form.student_id }}
+          {{ form.student_id.errors }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Check Status</button>
+    </form>
+  </div>
+
+  {% if error %}
+  <div class="alert alert-error">{{ error }}</div>
+  {% endif %}
+
+  {% if application %}
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.3rem;">{{ application.full_name }}</h2>
+        <div style="color:var(--mid-gray);font-size:0.88rem;">Ref: {{ application.reference_number }} · Submitted {{ application.submitted_at|date:"M d, Y" }}</div>
+      </div>
+      <span class="status-badge status-{{ application.status }}" style="font-size:0.9rem;padding:0.4rem 1.2rem;">
+        {{ application.get_status_display }}
+      </span>
+    </div>
+
+    <!-- Status timeline -->
+    <div style="margin-bottom:2rem;">
+      {% with status=application.status %}
+      <div style="display:flex;gap:0;margin-bottom:0.5rem;">
+        {% for s, label, active in statuses %}
+        <div style="flex:1;text-align:center;">
+          <div style="width:28px;height:28px;border-radius:50%;
+            background:{% if active %}var(--navy){% else %}var(--light-gray){% endif %};
+            margin:0 auto 0.4rem;display:flex;align-items:center;justify-content:center;">
+            {% if active %}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {% endif %}
+          </div>
+          <div style="font-size:0.72rem;color:{% if active %}var(--navy){% else %}var(--mid-gray){% endif %};font-weight:{% if active %}600{% else %}400{% endif %};">{{ label }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endwith %}
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.8rem 0;color:var(--mid-gray);width:45%;">Student ID</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.student_id }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.8rem 0;color:var(--mid-gray);">Program</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.get_program_display }}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.8rem 0;color:var(--mid-gray);">First Choice</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.first_choice }}</td>
+      </tr>
+      {% if application.second_choice %}
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.8rem 0;color:var(--mid-gray);">Second Choice</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.second_choice }}</td>
+      </tr>
+      {% endif %}
+      <tr style="border-bottom:1px solid var(--light-gray);">
+        <td style="padding:0.8rem 0;color:var(--mid-gray);">Exchange Period</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.get_exchange_semester_display }} {{ application.exchange_year }}</td>
+      </tr>
+      <tr>
+        <td style="padding:0.8rem 0;color:var(--mid-gray);">Last Updated</td>
+        <td style="padding:0.8rem 0;font-weight:500;">{{ application.last_updated|date:"M d, Y · H:i" }}</td>
+      </tr>
+    </table>
+
+    {% if application.admin_notes %}
+    <div class="alert alert-info" style="margin-top:1.5rem;margin-bottom:0;">
+      <strong>Office Note:</strong> {{ application.admin_notes }}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

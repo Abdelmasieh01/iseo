@@ -1,0 +1,211 @@
+{% extends 'iseo/base.html' %}
+
+{% block title %}ISEO — International Student Exchange Office | Kuwait University{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a4a8a 100%);
+    padding: 6rem 2rem 5rem; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B8860B' fill-opacity='0.06'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner { position: relative; max-width: 780px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700; color: var(--white); line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: normal; }
+  .hero p {
+    color: rgba(255,255,255,0.78); font-size: 1.1rem;
+    margin-bottom: 2.5rem; line-height: 1.8;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .hero-actions .btn { padding: 0.85rem 2.2rem; font-size: 0.95rem; }
+
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .stats-bar-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+  }
+  .stat-item { padding: 1.8rem 1rem; border-right: 1px solid var(--light-gray); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--mid-gray); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .section { padding: 5rem 0; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .section-header .divider {
+    width: 50px; height: 3px; background: var(--gold);
+    margin: 0.8rem auto; border-radius: 2px;
+  }
+  .section-header p { color: var(--mid-gray); max-width: 560px; margin: 0 auto; }
+
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .step-card {
+    text-align: center; padding: 2rem 1.2rem;
+    background: var(--white); border-radius: 6px;
+    border: 1px solid var(--light-gray);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .step-card:hover { box-shadow: 0 8px 24px rgba(10,35,66,0.1); transform: translateY(-3px); }
+  .step-num {
+    width: 48px; height: 48px; background: var(--navy);
+    border-radius: 50%; color: var(--white);
+    font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  .step-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .step-card p { font-size: 0.88rem; color: var(--mid-gray); line-height: 1.6; }
+
+  .uni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .uni-card {
+    background: var(--white); border-radius: 6px;
+    border: 1px solid var(--light-gray); padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .uni-card:hover { box-shadow: 0 8px 24px rgba(10,35,66,0.1); transform: translateY(-3px); }
+  .uni-flag { font-size: 0.75rem; color: var(--mid-gray); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .uni-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .uni-slots { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--mid-gray); margin-top: 0.8rem; }
+  .slot-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+  .cta-band {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    padding: 4rem 2rem; text-align: center;
+  }
+  .cta-band h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--white); margin-bottom: 1rem; }
+  .cta-band p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
+
+  @media(max-width: 900px) {
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .uni-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item:nth-child(3) { border-top: 1px solid var(--light-gray); }
+  }
+  @media(max-width: 600px) {
+    .steps-grid { grid-template-columns: 1fr; }
+    .uni-grid { grid-template-columns: 1fr; }
+    .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Kuwait University · College of Business Administration</div>
+    <h1>Connect, Apply, <em>Explore</em></h1>
+    <p>The International Student Exchange Office helps CBA students discover world-class academic experiences at our partner universities across 6 continents. Your global journey starts here.</p>
+    <div class="hero-actions">
+      <a href="{% url 'apply' %}" class="btn btn-gold">Apply for Exchange</a>
+      <a href="{% url 'programs' %}" class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,0.5)">View Partner Universities</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">{{ total_partners }}+</div>
+      <div class="stat-label">Partner Universities</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Semesters per Year</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Online Application</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section class="section">
+    <div class="section-header">
+      <h2>How the Exchange Program Works</h2>
+      <div class="divider"></div>
+      <p>Four straightforward steps from eligibility check to boarding your flight.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Check Eligibility</h3>
+        <p>Confirm your GPA meets the minimum 2.75 threshold and you have completed at least 60 credit hours.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Choose Your University</h3>
+        <p>Browse our partner directory, compare language requirements, deadlines, and available slots.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Submit Application</h3>
+        <p>Complete the online application form, attach your documents, and receive a reference number instantly.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Track Your Status</h3>
+        <p>Use your reference number to check your application status at any time. We'll also email you updates.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="section-header">
+      <h2>Featured Partner Universities</h2>
+      <div class="divider"></div>
+      <p>A selection of our current exchange partners. <a href="{% url 'programs' %}" style="color:var(--navy);font-weight:600;">View all →</a></p>
+    </div>
+    <div class="uni-grid">
+      {% for uni in universities %}
+      <div class="uni-card">
+        <div class="uni-flag">{{ uni.country }}</div>
+        <h3>{{ uni.name }}</h3>
+        <p style="font-size:0.88rem;color:var(--mid-gray);line-height:1.6;">{{ uni.description|truncatewords:20 }}</p>
+        <div class="uni-slots">
+          <div class="slot-dot"></div>
+          <span>{{ uni.available_slots }} slots · Min GPA {{ uni.min_gpa }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<div class="cta-band">
+  <h2>Ready to Study Abroad?</h2>
+  <p>Applications for Fall 2026 are now open. Don't miss your chance to experience global education.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="{% url 'apply' %}" class="btn btn-gold">Start Your Application</a>
+    <a href="{% url 'contact' %}" class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,0.5)">Talk to an Advisor</a>
+  </div>
+</div>
+{% endblock %}

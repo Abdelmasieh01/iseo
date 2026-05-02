@@ -1,0 +1,71 @@
+{% extends 'iseo/base.html' %}
+{% block title %}About — ISEO Kuwait University{% endblock %}
+
+{% block extra_head %}
+<style>
+  .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 3rem; align-items: start; padding: 4rem 0; }
+  .about-content h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 1rem; }
+  .about-content p { color: #374151; line-height: 1.8; margin-bottom: 1.2rem; }
+  .about-sidebar { position: sticky; top: 100px; }
+  .info-box { background: var(--navy); color: white; padding: 2rem; border-radius: 6px; }
+  .info-box h3 { font-family: 'Playfair Display', serif; margin-bottom: 1rem; color: var(--gold-light); }
+  .info-row { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; font-size: 0.9rem; }
+  .info-label { color: rgba(255,255,255,0.55); width: 90px; flex-shrink: 0; }
+  .info-val { color: white; font-weight: 500; }
+  .team-card { background: white; border: 1px solid var(--light-gray); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 1rem; }
+  .team-card h4 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 0.2rem; }
+  .team-card span { font-size: 0.82rem; color: var(--mid-gray); }
+  @media(max-width:768px){ .about-grid { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+  <h1>About the ISEO</h1>
+  <div class="gold-line"></div>
+  <p>Facilitating global academic experiences for Kuwait University students since 2010.</p>
+</div>
+
+<div class="container">
+  <div class="about-grid">
+    <div class="about-content">
+      <h2>Our Mission</h2>
+      <p>The International Student Exchange Office (ISEO) is a unit within the Department of Information Systems and Operations Management (ISOM), College of Business Administration, Kuwait University. Our mission is to broaden the academic and cultural horizons of CBA students by facilitating semester-long exchange experiences at our partner universities worldwide.</p>
+
+      <h2>What We Do</h2>
+      <p>We manage all aspects of the student exchange lifecycle — from initial eligibility assessment through post-exchange credit transfer support. Our team coordinates directly with partner institutions to maintain available exchange slots, track application deadlines, and ensure a smooth transition for outbound students.</p>
+      <p>This website serves as the central hub for all exchange-related information and the primary channel through which students submit and track their applications. It was developed as part of the ISOM 331 Systems Analysis and Design course (Spring 2026) following a rigorous requirements analysis process.</p>
+
+      <h2>System Requirements Context</h2>
+      <p>This platform was built upon requirements gathered through four methodologies: benchmarking of Cornell University and FIU international exchange portals, user scenario analysis across three user roles, secondary research from Google Scholar and IEEE Xplore on student information systems, and heuristic evaluation using Nielsen's 10 usability principles.</p>
+      <p>Key requirements driving this implementation include: online multi-step application forms with inline validation, a filterable partner university directory, real-time application status tracking by reference number, automated reference number assignment, and a contact channel for direct advisor communication.</p>
+
+      <h2>Project Team — Phase 4</h2>
+      <div class="team-card">
+        <h4>Jumanah Mourad</h4><span>2192115669 · Website Review & Implementation</span>
+      </div>
+      <div class="team-card">
+        <h4>Ghaneemah Alrujaib</h4><span>2211123553 · Requirements & Backend Logic</span>
+      </div>
+      <div class="team-card">
+        <h4>Sarah Almutairi</h4><span>2221175012 · UI Design & Forms</span>
+      </div>
+      <div class="team-card">
+        <h4>Almaha Alajmi</h4><span>2221147629 · Data Modeling & WBS Linkage</span>
+      </div>
+    </div>
+
+    <div class="about-sidebar">
+      <div class="info-box">
+        <h3>Office Information</h3>
+        <div class="info-row"><span class="info-label">Location</span><span class="info-val">ISOM Dept., 2nd Floor, CBA Building</span></div>
+        <div class="info-row"><span class="info-label">Email</span><span class="info-val">iseo@cba.edu.kw</span></div>
+        <div class="info-row"><span class="info-label">Phone</span><span class="info-val">+965 2498 7400</span></div>
+        <div class="info-row"><span class="info-label">Hours</span><span class="info-val">Sun–Thu, 9 AM – 3 PM</span></div>
+        <div class="info-row"><span class="info-label">Instructor</span><span class="info-val">Dr. Kamel Rouibah</span></div>
+        <div class="info-row"><span class="info-label">Course</span><span class="info-val">ISOM 331 · Spring 2026</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

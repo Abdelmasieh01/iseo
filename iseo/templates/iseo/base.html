@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ISEO — International Student Exchange Office{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A2342;
+      --navy-mid: #163566;
+      --gold: #B8860B;
+      --gold-light: #D4A017;
+      --cream: #FAF8F3;
+      --off-white: #F4F1EC;
+      --mid-gray: #6B7280;
+      --light-gray: #E8E4DC;
+      --text: #1C1C1E;
+      --white: #FFFFFF;
+      --success: #166534;
+      --error: #991B1B;
+      --radius: 4px;
+      --shadow: 0 2px 12px rgba(10,35,66,0.08);
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--navy);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 68px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none;
+    }
+    .nav-brand-logo {
+      width: 42px; height: 42px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; color: var(--navy); font-size: 1.1rem;
+    }
+    .nav-brand-text { display: flex; flex-direction: column; }
+    .nav-brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--white); line-height: 1.2;
+    }
+    .nav-brand-sub {
+      font-size: 0.7rem; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none; font-size: 0.88rem;
+      font-weight: 500; letter-spacing: 0.03em;
+      padding: 0.5rem 0.85rem; border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--white); background: rgba(255,255,255,0.1);
+    }
+    .nav-links .btn-apply {
+      background: var(--gold); color: var(--navy);
+      font-weight: 600; margin-left: 0.5rem;
+    }
+    .nav-links .btn-apply:hover { background: var(--gold-light); }
+
+    /* ── PAGE HEADER BAND ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--white); position: relative;
+    }
+    .page-hero .gold-line {
+      width: 60px; height: 3px; background: var(--gold);
+      margin: 1rem auto; border-radius: 2px;
+    }
+    .page-hero p {
+      color: rgba(255,255,255,0.78); font-size: 1.1rem;
+      max-width: 600px; margin: 0 auto; position: relative;
+    }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      border: 1px solid var(--light-gray);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block; padding: 0.7rem 1.8rem;
+      border-radius: var(--radius); font-weight: 600;
+      font-size: 0.9rem; letter-spacing: 0.03em;
+      text-decoration: none; cursor: pointer;
+      border: none; transition: all 0.2s; font-family: inherit;
+    }
+    .btn-primary { background: var(--navy); color: var(--white); }
+    .btn-primary:hover { background: var(--navy-mid); }
+    .btn-gold { background: var(--gold); color: var(--white); }
+    .btn-gold:hover { background: var(--gold-light); }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      border: 2px solid var(--navy);
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+
+    /* ── FORMS ── */
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label {
+      display: block; font-weight: 600; font-size: 0.88rem;
+      color: var(--navy); margin-bottom: 0.4rem;
+      letter-spacing: 0.02em; text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius);
+      font-family: inherit; font-size: 0.95rem;
+      color: var(--text); background: var(--white);
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none; border-color: var(--navy);
+    }
+    .form-group .errorlist {
+      list-style: none; color: var(--error);
+      font-size: 0.83rem; margin-top: 0.3rem;
+    }
+    .form-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem; margin: 2rem 0 1.2rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+    /* ── ALERTS ── */
+    .alert {
+      padding: 1rem 1.2rem; border-radius: var(--radius);
+      margin-bottom: 1.5rem; font-size: 0.93rem;
+    }
+    .alert-success { background: #DCFCE7; color: var(--success); border-left: 4px solid #16A34A; }
+    .alert-error { background: #FEE2E2; color: var(--error); border-left: 4px solid #DC2626; }
+    .alert-info { background: #DBEAFE; color: #1E40AF; border-left: 4px solid #3B82F6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.7);
+      margin-top: 5rem; padding: 3rem 2rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white); font-size: 1.1rem; margin-bottom: 0.7rem;
+    }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.7; }
+    .footer-col h4 {
+      color: var(--gold); font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; color: rgba(255,255,255,0.65);
+      text-decoration: none; font-size: 0.88rem;
+      margin-bottom: 0.5rem; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1200px; margin: 2rem auto 0;
+      padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+      display: flex; justify-content: space-between;
+    }
+    @media(max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .nav-links a { font-size: 0.78rem; padding: 0.4rem 0.55rem; }
+    }
+
+    /* ── STATUS BADGE ── */
+    .status-badge {
+      display: inline-block; padding: 0.3rem 0.9rem;
+      border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      text-transform: capitalize;
+    }
+    .status-pending { background: #FEF3C7; color: #92400E; }
+    .status-under_review { background: #DBEAFE; color: #1E40AF; }
+    .status-accepted { background: #DCFCE7; color: #166534; }
+    .status-rejected { background: #FEE2E2; color: #991B1B; }
+    .status-waitlisted { background: #F3E8FF; color: #6B21A8; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-brand-logo">CBA</div>
+      <div class="nav-brand-text">
+        <span class="nav-brand-title">ISEO</span>
+        <span class="nav-brand-sub">Kuwait University · College of Business</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'programs' %}">Partner Universities</a>
+      <a href="{% url 'eligibility' %}">Eligibility</a>
+      <a href="{% url 'track_status' %}">Track Application</a>
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="{% url 'apply' %}" class="btn-apply">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+{% if messages %}
+  <div class="container" style="padding-top: 1.5rem;">
+    {% for msg in messages %}
+      <div class="alert alert-{{ msg.tags|default:'info' }}">{{ msg|safe }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>International Student Exchange Office</h3>
+      <p>Connect, Apply, Explore — The ISEO facilitates international exchange programs for Kuwait University College of Business Administration students. We help you discover the world while earning your degree.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="{% url 'programs' %}">Partner Universities</a>
+      <a href="{% url 'eligibility' %}">Eligibility Criteria</a>
+      <a href="{% url 'apply' %}">Submit Application</a>
+      <a href="{% url 'track_status' %}">Track Your Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:iseo@cba.edu.kw">iseo@cba.edu.kw</a>
+      <a href="tel:+96524987400">+965 2498 7400</a>
+      <a href="#">ISOM Department, 2nd Floor</a>
+      <a href="#">Kuwait University, Shuwaikh</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Kuwait University — College of Business Administration, ISOM Dept.</span>
+    <span>ISOM 331 · Spring 2026 · Group Project Phase 4</span>
+  </div>
+</footer>
+
+</body>
+</html>

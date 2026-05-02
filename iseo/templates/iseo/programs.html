@@ -1,0 +1,107 @@
+{% extends 'iseo/base.html' %}
+{% block title %}Partner Universities — ISEO{% endblock %}
+
+{% block extra_head %}
+<style>
+  .filter-bar {
+    background: var(--white); border-bottom: 1px solid var(--light-gray);
+    padding: 1.2rem 0;
+  }
+  .filter-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .filter-inner label { font-weight: 600; font-size: 0.85rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; }
+  .filter-inner select {
+    padding: 0.5rem 1rem; border: 1.5px solid var(--light-gray);
+    border-radius: var(--radius); font-family: inherit; font-size: 0.9rem;
+    background: white; color: var(--text); cursor: pointer;
+  }
+  .filter-inner select:focus { outline: none; border-color: var(--navy); }
+
+  .uni-list { padding: 3rem 0; }
+  .uni-row {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: 6px; padding: 1.8rem 2rem;
+    margin-bottom: 1rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    align-items: center; gap: 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .uni-row:hover { box-shadow: 0 4px 16px rgba(10,35,66,0.09); }
+  .uni-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 0.2rem; }
+  .uni-country { font-size: 0.82rem; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.06em; }
+  .uni-meta-label { font-size: 0.72rem; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .uni-meta-val { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+  .slots-pill {
+    background: var(--off-white); border: 1px solid var(--light-gray);
+    border-radius: 20px; padding: 0.3rem 0.9rem;
+    font-size: 0.85rem; font-weight: 600; color: var(--navy); text-align: center;
+  }
+  @media(max-width:900px){ .uni-row { grid-template-columns: 1fr 1fr; } }
+  @media(max-width:600px){ .uni-row { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+  <h1>Partner Universities</h1>
+  <div class="gold-line"></div>
+  <p>{{ universities.count }} exchange destinations across {{ countries|length }} countries. Filter by country to find your ideal match.</p>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <label>Filter by Country:</label>
+    <form method="get">
+      <select name="country" onchange="this.form.submit()">
+        <option value="">All Countries</option>
+        {% for c in countries %}
+          <option value="{{ c }}" {% if c == selected_country %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </form>
+    {% if selected_country %}
+      <a href="{% url 'programs' %}" class="btn btn-outline" style="padding:0.4rem 1rem;font-size:0.85rem;">Clear Filter</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container">
+  <div class="uni-list">
+    {% for uni in universities %}
+    <div class="uni-row">
+      <div>
+        <div class="uni-name">{{ uni.name }}</div>
+        <div class="uni-country">{{ uni.country }} · {{ uni.region }}</div>
+        <div style="font-size:0.85rem;color:var(--mid-gray);margin-top:0.5rem;line-height:1.5;">{{ uni.description|truncatewords:25 }}</div>
+      </div>
+      <div>
+        <div class="uni-meta-label">Min GPA</div>
+        <div class="uni-meta-val">{{ uni.min_gpa }}</div>
+      </div>
+      <div>
+        <div class="uni-meta-label">Language</div>
+        <div class="uni-meta-val" style="font-size:0.82rem;">{{ uni.language_requirement|default:"—" }}</div>
+      </div>
+      <div>
+        <div class="uni-meta-label">Deadline</div>
+        <div class="uni-meta-val">{{ uni.application_deadline|date:"M d, Y"|default:"TBA" }}</div>
+      </div>
+      <div>
+        <div class="slots-pill">{{ uni.available_slots }} slots</div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="card" style="text-align:center;padding:3rem;">
+      <p style="color:var(--mid-gray);">No universities found for that filter. <a href="{% url 'programs' %}">View all</a>.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div style="text-align:center;padding-bottom:3rem;">
+    <p style="color:var(--mid-gray);margin-bottom:1.5rem;">Ready to apply to one of these universities?</p>
+    <a href="{% url 'apply' %}" class="btn btn-primary">Start Your Application</a>
+  </div>
+</div>
+{% endblock %}

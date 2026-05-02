@@ -1,0 +1,133 @@
+{% extends 'iseo/base.html' %}
+{% block title %}Eligibility Criteria — ISEO{% endblock %}
+
+{% block extra_head %}
+<style>
+  .criteria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+  .criteria-card { background: white; border: 1px solid var(--light-gray); border-radius: 6px; padding: 1.8rem; }
+  .criteria-card .icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .criteria-card h3 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 0.8rem; }
+  .criteria-card ul { padding-left: 1.2rem; }
+  .criteria-card li { font-size: 0.9rem; color: #374151; margin-bottom: 0.4rem; line-height: 1.6; }
+  .check-tool { background: var(--navy); color: white; border-radius: 8px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+  .check-tool h2 { font-family: 'Playfair Display', serif; margin-bottom: 0.7rem; }
+  .check-tool p { color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; }
+  .gpa-input { padding: 0.7rem 1rem; border-radius: 4px; border: none; font-size: 1rem; width: 200px; text-align: center; }
+  .result-box { margin-top: 1.5rem; padding: 1rem 2rem; border-radius: 6px; display: none; }
+  .result-ok { background: #DCFCE7; color: #166534; }
+  .result-no { background: #FEE2E2; color: #991B1B; }
+  @media(max-width:640px){ .criteria-grid { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+  <h1>Eligibility Criteria</h1>
+  <div class="gold-line"></div>
+  <p>Check whether you qualify for the International Student Exchange Program.</p>
+</div>
+
+<div class="container" style="padding: 3rem 2rem 5rem;">
+
+  <div class="criteria-grid">
+    <div class="criteria-card">
+      <div class="icon">🎓</div>
+      <h3>Academic Standing</h3>
+      <ul>
+        <li>Minimum cumulative GPA of <strong>2.75</strong> on a 4.0 scale</li>
+        <li>Some universities require 3.0 or higher — check the partner directory</li>
+        <li>Completed at least <strong>60 credit hours</strong> by exchange semester</li>
+        <li>Currently enrolled as a full-time student at CBA</li>
+      </ul>
+    </div>
+    <div class="criteria-card">
+      <div class="icon">📋</div>
+      <h3>Enrollment Status</h3>
+      <ul>
+        <li>Must be an undergraduate or graduate CBA student</li>
+        <li>In good disciplinary standing with the university</li>
+        <li>No outstanding financial obligations to the university</li>
+        <li>Approval from your department academic advisor</li>
+      </ul>
+    </div>
+    <div class="criteria-card">
+      <div class="icon">🌐</div>
+      <h3>Language Requirements</h3>
+      <ul>
+        <li>English-medium programs: TOEFL iBT ≥ 79 or IELTS ≥ 6.0</li>
+        <li>Top-ranked destinations may require TOEFL iBT 100+ or IELTS 7.5</li>
+        <li>French/Spanish/German-medium: B2 proficiency minimum</li>
+        <li>Language certificates must be less than 2 years old</li>
+      </ul>
+    </div>
+    <div class="criteria-card">
+      <div class="icon">📄</div>
+      <h3>Required Documents</h3>
+      <ul>
+        <li>Valid passport (not expiring within 6 months of return)</li>
+        <li>Official university transcript</li>
+        <li>Language proficiency certificate</li>
+        <li>One academic recommendation letter</li>
+        <li>Personal statement (150–500 words)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="check-tool">
+    <h2>Quick GPA Eligibility Check</h2>
+    <p>Enter your current GPA to see if you meet the minimum requirement.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <input type="number" class="gpa-input" id="gpa-input" placeholder="e.g. 3.2" min="0" max="4" step="0.01">
+      <button class="btn btn-gold" onclick="checkGPA()">Check Eligibility</button>
+    </div>
+    <div id="result-box" class="result-box"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:1rem;">Frequently Asked Questions</h2>
+    <div style="border-top:1px solid var(--light-gray);padding:1.2rem 0;">
+      <h4 style="color:var(--navy);margin-bottom:0.4rem;">Can I go on exchange in my first year?</h4>
+      <p style="color:#374151;font-size:0.92rem;">No. You must have completed a minimum of 60 credit hours, which typically means you are at least in your third year of study.</p>
+    </div>
+    <div style="border-top:1px solid var(--light-gray);padding:1.2rem 0;">
+      <h4 style="color:var(--navy);margin-bottom:0.4rem;">How many semesters can I go on exchange?</h4>
+      <p style="color:#374151;font-size:0.92rem;">The standard exchange is one semester. Extended exchanges of two consecutive semesters may be approved on a case-by-case basis.</p>
+    </div>
+    <div style="border-top:1px solid var(--light-gray);padding:1.2rem 0;">
+      <h4 style="color:var(--navy);margin-bottom:0.4rem;">Will my courses count toward my Kuwait University degree?</h4>
+      <p style="color:#374151;font-size:0.92rem;">Yes, subject to advance credit approval from your department. You must submit a study plan before departure and get written approval from your academic advisor.</p>
+    </div>
+    <div style="border-top:1px solid var(--light-gray);padding:1.2rem 0;">
+      <h4 style="color:var(--navy);margin-bottom:0.4rem;">What if my first-choice university is full?</h4>
+      <p style="color:#374151;font-size:0.92rem;">Your second choice university will be considered automatically. If both are unavailable, the ISEO will contact you to discuss alternatives before making a final decision.</p>
+    </div>
+    <div style="border-top:1px solid var(--light-gray);padding:1.2rem 0;">
+      <h4 style="color:var(--navy);margin-bottom:0.4rem;">Is there a financial grant for exchange students?</h4>
+      <p style="color:#374151;font-size:0.92rem;">Exchange students continue to pay Kuwait University tuition and are exempt from tuition at the host university. Limited travel grants may be available — contact the ISEO for current funding opportunities.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:3rem;">
+    <a href="{% url 'apply' %}" class="btn btn-primary" style="margin-right:1rem;">Apply Now</a>
+    <a href="{% url 'contact' %}" class="btn btn-outline">Ask a Question</a>
+  </div>
+</div>
+
+<script>
+function checkGPA() {
+  const val = parseFloat(document.getElementById('gpa-input').value);
+  const box = document.getElementById('result-box');
+  box.style.display = 'block';
+  if (isNaN(val) || val < 0 || val > 4) {
+    box.className = 'result-box result-no';
+    box.innerHTML = '⚠️ Please enter a valid GPA between 0.00 and 4.00.';
+  } else if (val >= 2.75) {
+    box.className = 'result-box result-ok';
+    box.innerHTML = '✅ Your GPA of <strong>' + val.toFixed(2) + '</strong> meets the minimum requirement of 2.75. You may be eligible to apply!';
+  } else {
+    box.className = 'result-box result-no';
+    box.innerHTML = '❌ Your GPA of <strong>' + val.toFixed(2) + '</strong> does not meet the minimum requirement of 2.75. Contact the ISEO office for advice.';
+  }
+}
+</script>
+{% endblock %}
